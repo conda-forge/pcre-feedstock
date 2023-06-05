@@ -11,7 +11,7 @@ source:
     - 0001-Define-snprintf-for-old-VS.patch
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # mostly OK, but some scary symbol removal.  Let's try for trusting them.
     #    https://abi-laboratory.pro/tracker/timeline/pcre/
@@ -28,6 +28,14 @@ requirements:
     - make         # [unix]
 
 test:
+  requires:
+    # CMake needs compiler on Windows to be able to run package detection.
+    # See: https://discourse.cmake.org/t/questions-about-find-package-cli-msvc/6194
+    - {{ compiler('cxx') }}  # [win]
+    - cmake
+  files:
+    - cmake_test/
+
   commands:
     # CLI tests.
     - pcre-config --version                             # [not win]
@@ -61,6 +69,11 @@ test:
     - if not exist %LIBRARY_BIN%\pcreposix.dll exit 1  # [win]
     - if not exist %LIBRARY_LIB%\pcrecpp.lib exit 1  # [win]
     - if not exist %LIBRARY_BIN%\pcrecpp.dll exit 1  # [win]
+
+    # Test pcre resolution via CMake
+    - cd cmake_test
+    - cmake %CMAKE_ARGS% .                            # [win]
+    - cmake $CMAKE_ARGS .                             # [unix]
 
 about:
   home: http://www.pcre.org/
