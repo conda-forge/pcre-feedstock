@@ -32,6 +32,7 @@ test:
     # CMake needs compiler on Windows to be able to run package detection.
     # See: https://discourse.cmake.org/t/questions-about-find-package-cli-msvc/6194
     - {{ compiler('cxx') }}  # [win]
+    - make                   # [unix]
     - cmake
   files:
     - cmake_test/
