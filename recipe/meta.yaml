@@ -29,9 +29,8 @@ requirements:
 
 test:
   requires:
-    - {{ compiler('cxx') }}
-    - cmake
-    - make                   # [unix]
+    - {{ compiler('cxx') }}  # [win]
+    - cmake                  # [win]
   files:
     - cmake_test/
 
@@ -70,9 +69,9 @@ test:
     - if not exist %LIBRARY_BIN%\pcrecpp.dll exit 1  # [win]
 
     # Test pcre resolution via CMake
-    - cd cmake_test
-    - cmake %CMAKE_ARGS% .                            # [win]
-    - cmake $CMAKE_ARGS .                             # [unix]
+    - cd cmake_test                                  # [win]
+    - cmake %CMAKE_ARGS% .                           # [win]
+    - cmake $CMAKE_ARGS .                            # [win]
 
 about:
   home: http://www.pcre.org/

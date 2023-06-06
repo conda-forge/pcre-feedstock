@@ -1,0 +1,21 @@
+# pcre cmake module
+#
+# This module defines the following variables in your project::
+#
+#   pcre_FOUND          - True if pcre is available
+#   pcre_INCLUDE_DIR    - Include directories for pcre
+#   pcre_LIBRARY        - The library for dynamically linking
+
+@PACKAGE_INIT@
+
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR};${CMAKE_MODULE_PATH}")
+
+@PCRE_CONFIG_CODE@
+
+include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@-targets.cmake")
+get_target_property(
+    @PROJECT_NAME@_INCLUDE_DIR pcre INTERFACE_INCLUDE_DIRECTORIES
+)
+get_target_property(
+    @PROJECT_NAME@_LIBRARY pcre LOCATION
+)
