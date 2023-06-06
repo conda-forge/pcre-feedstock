@@ -1,3 +1,8 @@
+:: This patches CMakeLists.txt by appending an "Installation" section
+:: so that the pcre can be resolved by other projects.
+copy %RECIPE_DIR%\CMakeLists.txt %SRC_DIR%\CMakeLists.txt
+copy %RECIPE_DIR%\pcreConfig.cmake.in %SRC_DIR%\pcreConfig.cmake.in
+
 cmake -G "NMake Makefiles" ^
     -D CMAKE_BUILD_TYPE=Release ^
     -D BUILD_SHARED_LIBS=ON ^
