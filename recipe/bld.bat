@@ -1,4 +1,4 @@
-cmake -G "NMake Makefiles" ^
+cmake %CMAKE_ARGS% -G "NMake Makefiles" ^
     -D CMAKE_BUILD_TYPE=Release ^
     -D BUILD_SHARED_LIBS=ON ^
     -D PCRE_SUPPORT_UTF=ON ^
@@ -14,7 +14,9 @@ if errorlevel 1 exit 1
 
 :: pcre_test_bat fails to run for some reason
 :: might need more investigation
+if not "%CONDA_BUILD_SKIP_TESTS%"=="1" (
 ctest -E pcre_test_bat .
+)
 if errorlevel 1 exit 1
 
 nmake install
